@@ -7,5 +7,7 @@ import com.ibm.productservice.domain.Product;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
+	
+	Product findByProductName(String name);
 
 }

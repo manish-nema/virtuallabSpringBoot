@@ -29,4 +29,25 @@ public class ProductService {
 		return productDTO;
 	}
 
+	public ProductDTO createProduct(ProductDTO dto) {
+		
+		ProductMapper mapper=new ProductMapper();
+		Product product= mapper.convertProductDTOToProduct(dto);
+		
+		Product product1= productRepository.save(product);
+		       return mapper.convertProductToProductDTO(product1);
+		
+	}
+	
+	public void deleteProduct(Long id) {
+		productRepository.delete(productRepository.findById(id).get());
+		
+	}
+	
+	public ProductDTO getProductByName(String name) {
+		Product product=productRepository.findByProductName(name);
+		ProductMapper mapper=new ProductMapper();
+		return mapper.convertProductToProductDTO(product);
+		
+	}
 }

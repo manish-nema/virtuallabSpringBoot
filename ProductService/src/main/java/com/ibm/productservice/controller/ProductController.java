@@ -2,8 +2,12 @@ package com.ibm.productservice.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ibm.productservice.dto.ProductDTO;
@@ -25,5 +29,30 @@ public class ProductController {
 		return ResponseEntity.ok().body(productService.getProductById(id));
 		
 	}
+	
+	@PostMapping("product/create")
+	public ResponseEntity<ProductDTO> createProduct(@RequestBody ProductDTO productDTO) {
+		
+		ProductDTO dto=productService.createProduct(productDTO);
+		return ResponseEntity.ok().body(dto);
+	}
+	
+	@DeleteMapping("product/{id}")
+	public ResponseEntity<?> deleteProduct(@PathVariable(value="id") Long id){
+		
+		productService.deleteProduct(id);
+		
+		return ResponseEntity.noContent().build();
+	}
+	
+	@ApiOperation("This will provide products for given product name.")
+	@GetMapping("product")
+	public ResponseEntity<ProductDTO> searchByProductName(@RequestParam(value="name") String name) {
+		
+					
+		return ResponseEntity.ok().body(productService.getProductByName(name));
+		
+	}
+	
 
 }
