@@ -9,12 +9,15 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ibm.productservice.dto.ProductDTO;
 import com.ibm.productservice.service.ProductService;
 
+import io.swagger.annotations.ApiOperation;
+
 @RestController
 public class ProductController {
 	
 	@Autowired
 	ProductService productService;
 	
+	@ApiOperation("This will provide products for given product ID.")
 	@GetMapping("product/{id}")
 	public ResponseEntity<ProductDTO> searchByProductID(@PathVariable(value="id") Long id) {
 		
